@@ -48,10 +48,8 @@ class geoth_doub():
 
                  # Input parameters economic
                  pump_eta=0.5,  # ???
-                 P_doublet_target=10,  # doublet power target MW)
-                 t_breakthrough_target=30,  # breakthrough time target (years)
-                 facilities_cost_multi=1.1  # multiplier for costs other than drilling to be added to CapEx
                  ):
+        
         # Input parameters Geometry
         self.r_d = r_d
         self.r_h = r_h
@@ -92,12 +90,8 @@ class geoth_doub():
         self.mu_avg = (self.mu_prod + self.mu_inj) / 2
 
         # Input parameters economic
-        self.P_doublet_target = P_doublet_target
-        self.t_breakthrough_target = t_breakthrough_target
         self.pump_eta = pump_eta
-        self.drilled_depth = self.r_d + self.r_h  # length of wells m
-        self.facilities_cost_multi = facilities_cost_multi
-        self.CapEx = drill_costs(drill_depth=self.drilled_depth) * self.facilities_cost_multi
+
 
 
     def compute_all(self):
@@ -123,6 +117,7 @@ class geoth_doub():
     def p_pumps(self):
 
         self.p_pumps_MW = self.dp_wells() * self.q_m3_s / self.pump_eta
+        return self.p_pumps_MW
 
     def mobility_lambda(self):
         mobility_lambda = self.phi * self.rho_fluid * self.Cp_fluid / (
