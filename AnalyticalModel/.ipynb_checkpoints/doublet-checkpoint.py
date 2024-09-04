@@ -2,19 +2,12 @@
 """
 Created on Mon Feb 13 15:28:23 2023
 
-@author: adaniilidis
+@author: adaniilidis, cwallmeier
 """
 
 import pandas as pd
 import numpy as np
-from econ_functions import *
 from CoolProp.CoolProp import PropsSI
-
-
-# ++++++++++ TO DO
-# optimize well spacing for power
-# update fluid mu and p for both wells to use actual operating conditions. Problem: p wants mu, mu wants p
-
 
 class geoth_doub():
 
@@ -47,11 +40,9 @@ class geoth_doub():
                  T_inj=30,  # injection temperature degC
 
                  # Input parameters economic
-                 pump_eta=0.5,  # ???
-                 P_doublet_target=10,  # doublet power target MW)
-                 t_breakthrough_target=30,  # breakthrough time target (years)
-                 facilities_cost_multi=1.1  # multiplier for costs other than drilling to be added to CapEx
+                 pump_eta=0.5,  # 
                  ):
+        
         # Input parameters Geometry
         self.r_d = r_d
         self.r_h = r_h
@@ -92,12 +83,8 @@ class geoth_doub():
         self.mu_avg = (self.mu_prod + self.mu_inj) / 2
 
         # Input parameters economic
-        self.P_doublet_target = P_doublet_target
-        self.t_breakthrough_target = t_breakthrough_target
         self.pump_eta = pump_eta
-        self.drilled_depth = self.r_d + self.r_h  # length of wells m
-        self.facilities_cost_multi = facilities_cost_multi
-        self.CapEx = drill_costs(drill_depth=self.drilled_depth) * self.facilities_cost_multi
+
 
 
     def compute_all(self):
@@ -123,6 +110,7 @@ class geoth_doub():
     def p_pumps(self):
 
         self.p_pumps_MW = self.dp_wells() * self.q_m3_s / self.pump_eta
+        return self.p_pumps_MW
 
     def mobility_lambda(self):
         mobility_lambda = self.phi * self.rho_fluid * self.Cp_fluid / (
@@ -157,22 +145,3 @@ class geoth_doub():
         self.P_doublet_MW = self.P_doublet_kW * 1e-3
 
         return self.P_doublet_MW
-
-    def q_sodm(self):
-        self.p_inj_max = self.r_d * ((0.135 * 1e5) - (self.p_grad * 1e-3))  # Pa
-        self.q_sodm_m3_h = (self.p_inj_max / ((self.mu_inj * np.log(self.w_space / self.w_diam)) / (
-                2 * np.pi * self.k_m2 * self.r_h))) * 3600  # m3/h
-
-
-# from Dieter to add properties and attributes to a single variable
-class T:
-    def __init__(self, x):
-        self._x = x
-
-    @property
-    def x(self):
-        return self._x
-
-    @x.setter
-    def x(self, x):
-        self._x = x

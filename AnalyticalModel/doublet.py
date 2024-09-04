@@ -2,18 +2,12 @@
 """
 Created on Mon Feb 13 15:28:23 2023
 
-@author: adaniilidis
+@author: adaniilidis, cwallmeier
 """
 
 import pandas as pd
 import numpy as np
 from CoolProp.CoolProp import PropsSI
-
-
-# ++++++++++ TO DO
-# optimize well spacing for power
-# update fluid mu and p for both wells to use actual operating conditions. Problem: p wants mu, mu wants p
-
 
 class geoth_doub():
 
@@ -46,7 +40,7 @@ class geoth_doub():
                  T_inj=30,  # injection temperature degC
 
                  # Input parameters economic
-                 pump_eta=0.5,  # ???
+                 pump_eta=0.5,  # 
                  ):
         
         # Input parameters Geometry
@@ -151,17 +145,3 @@ class geoth_doub():
         self.P_doublet_MW = self.P_doublet_kW * 1e-3
 
         return self.P_doublet_MW
-
-
-# from Dieter to add properties and attributes to a single variable
-class T:
-    def __init__(self, x):
-        self._x = x
-
-    @property
-    def x(self):
-        return self._x
-
-    @x.setter
-    def x(self, x):
-        self._x = x
