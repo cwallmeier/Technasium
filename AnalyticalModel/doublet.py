@@ -7,7 +7,6 @@ Created on Mon Feb 13 15:28:23 2023
 
 import pandas as pd
 import numpy as np
-from econ_functions import *
 from CoolProp.CoolProp import PropsSI
 
 
@@ -152,11 +151,6 @@ class geoth_doub():
         self.P_doublet_MW = self.P_doublet_kW * 1e-3
 
         return self.P_doublet_MW
-
-    def q_sodm(self):
-        self.p_inj_max = self.r_d * ((0.135 * 1e5) - (self.p_grad * 1e-3))  # Pa
-        self.q_sodm_m3_h = (self.p_inj_max / ((self.mu_inj * np.log(self.w_space / self.w_diam)) / (
-                2 * np.pi * self.k_m2 * self.r_h))) * 3600  # m3/h
 
 
 # from Dieter to add properties and attributes to a single variable
