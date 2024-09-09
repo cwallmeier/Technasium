@@ -1,0 +1,6 @@
+the following packages are required:
+
+numpy
+pandas
+CoolProp
+matplotlib.pyplot
