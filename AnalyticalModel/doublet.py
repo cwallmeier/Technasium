@@ -15,11 +15,11 @@ class geoth_doub():
                  # Input parameters Geometry
                  r_d=2283.33334,  # top reservoir depth in meters
                  r_h=100,  # reservoir thickness in meters
-                 r_w=500,  # reservoir width in meters
+                 r_w=1200,  # reservoir width in meters
 
                  # Input parameters rock properties
-                 phi=0.15,  # reservoir posority
-                 # k_mD=300,  # reservoir permeability mD
+                 poro=0.15,  # reservoir posority
+                 perm_mD=300,  # reservoir permeability mD
                  rho_rock=2300,  # rock density kg/m3
                  Cp_rock=1,  # 0.8532,  # specific heat capacity rock kJ/(kgK)
 
@@ -50,18 +50,11 @@ class geoth_doub():
         self.A = self.r_h * self.r_w  # cross sectional area (m2)
 
         # Input parameters rock properties
-        self.phi = phi
+        self.poro = poro
         self.rho_rock = rho_rock
         self.Cp_rock = Cp_rock
-        # Permeability is closely correlated with porosity. So we calculate perm (k_mD) based on poro (phi)
-        exp = (-3.523e-7 * (self.phi*100) ** 5
-               + 4.278e-5 * (self.phi*100) ** 4 
-               - 1.723e-3 * (self.phi*100) ** 3 
-               + 1.896e-2 * (self.phi*100) ** 2 
-               + 0.333 * (self.phi*100)
-               - 3.222)
-        self.k_mD = 10 ** exp
-        self.k_m2 = self.k_mD * 9.8692326671601e-13 * 1e-3  # reservoir permeability in m2
+        self.perm_mD = perm_mD
+        self.perm_m2 = self.perm_mD * 9.8692326671601e-13 * 1e-3  # reservoir permeability in m2
 
         # Input parameters fluid properties
         self.rho_fluid = rho_fluid
@@ -101,7 +94,6 @@ class geoth_doub():
         self.t_breakthrough()
         self.p_doublet()
         self.p_pumps()
-        self.q_sodm()
 
     def dp_wells(self):
         """
@@ -109,7 +101,7 @@ class geoth_doub():
         Assumes parallel flow from producer to injector, with cold front moving as a flat surface that covers the entire
         (rectancular) cross-section of the reservoir
         """
-        self.dp_MPa = 1e-6 * self.q_m3_s * self.mu_avg * self.w_space / (self.k_m2 * self.A)
+        self.dp_MPa = 1e-6 * self.q_m3_s * self.mu_avg * self.w_space / (self.perm_m2 * self.A)
 
         return self.dp_MPa
 
@@ -120,8 +112,8 @@ class geoth_doub():
         return self.p_pumps_MW
 
     def mobility_lambda(self):
-        mobility_lambda = self.phi * self.rho_fluid * self.Cp_fluid / (
-                (1 - self.phi) * self.rho_rock * self.Cp_rock + self.rho_fluid * self.Cp_fluid * self.phi)
+        mobility_lambda = self.poro * self.rho_fluid * self.Cp_fluid / (
+                (1 - self.poro) * self.rho_rock * self.Cp_rock + self.rho_fluid * self.Cp_fluid * self.poro)
         return mobility_lambda
 
     def v_coldfront(self):
@@ -131,7 +123,7 @@ class geoth_doub():
         (rectancular) cross-section of the reservoir
         """
         self.v_darcy = self.q_m3_s / self.A  # in m/s
-        self.v_cfront = self.mobility_lambda() / self.phi * self.v_darcy
+        self.v_cfront = self.mobility_lambda() / self.poro * self.v_darcy
         return self.v_cfront
 
 

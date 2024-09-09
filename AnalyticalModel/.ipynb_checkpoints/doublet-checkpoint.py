@@ -15,11 +15,11 @@ class geoth_doub():
                  # Input parameters Geometry
                  r_d=2283.33334,  # top reservoir depth in meters
                  r_h=100,  # reservoir thickness in meters
-                 r_w=500,  # reservoir width in meters
+                 r_w=1200,  # reservoir width in meters
 
                  # Input parameters rock properties
                  phi=0.15,  # reservoir posority
-                 # k_mD=300,  # reservoir permeability mD
+                 k_mD=300,  # reservoir permeability mD
                  rho_rock=2300,  # rock density kg/m3
                  Cp_rock=1,  # 0.8532,  # specific heat capacity rock kJ/(kgK)
 
@@ -53,14 +53,7 @@ class geoth_doub():
         self.phi = phi
         self.rho_rock = rho_rock
         self.Cp_rock = Cp_rock
-        # Permeability is closely correlated with porosity. So we calculate perm (k_mD) based on poro (phi)
-        exp = (-3.523e-7 * (self.phi*100) ** 5
-               + 4.278e-5 * (self.phi*100) ** 4 
-               - 1.723e-3 * (self.phi*100) ** 3 
-               + 1.896e-2 * (self.phi*100) ** 2 
-               + 0.333 * (self.phi*100)
-               - 3.222)
-        self.k_mD = 10 ** exp
+        self.k_mD = k_mD
         self.k_m2 = self.k_mD * 9.8692326671601e-13 * 1e-3  # reservoir permeability in m2
 
         # Input parameters fluid properties
