@@ -141,4 +141,3 @@ class make_doublet():
                    self.q_m3_h / (2 * np.pi * self.r_h * (self.w_space - r)))
         v_cold = self.lmbda() / self.poro * v_darcy
         return v_cold
-
