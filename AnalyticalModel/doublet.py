@@ -10,7 +10,7 @@ import numpy as np
 from CoolProp.CoolProp import PropsSI
 
 
-class geoth_doub():
+class make_doublet():
 
     def __init__(self,
                  # Input parameters Geometry
