@@ -137,7 +137,6 @@ class make_doublet():
             r = self.w_diam/2
         elif r == self.w_space:
             r = self.w_space - self.w_diam/2
-
         v_darcy = (self.q_m3_h / (2 * np.pi * self.r_h * r) +
                    self.q_m3_h / (2 * np.pi * self.r_h * (self.w_space - r)))
         v_cold = self.lmbda() / self.poro * v_darcy
