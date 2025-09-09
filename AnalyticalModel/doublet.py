@@ -128,16 +128,3 @@ class make_doublet():
         self.P_doublet_MW = self.P_doublet_kW * 1e-3
 
         return self.P_doublet_MW
-
-    # # ------------------------  Maybe for animating: ----------------------------------------------
-    # def v_coldfront(self, r):
-    #     # pressure solution is undefined (towards inf) at the well locations.
-    #     # So change r to outer well diameter in those cases
-    #     if r == 0:
-    #         r = self.w_diam/2
-    #     elif r == self.w_space:
-    #         r = self.w_space - self.w_diam/2
-    #     v_darcy = (self.q_m3_h / (2 * np.pi * self.r_h * r) +
-    #                self.q_m3_h / (2 * np.pi * self.r_h * (self.w_space - r)))
-    #     v_cold = self.lmbda() / self.poro * v_darcy
-    #     return v_cold
