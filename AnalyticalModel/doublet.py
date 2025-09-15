@@ -19,7 +19,7 @@ class make_doublet():
                  width_m=1200,  # reservoir width in meters
 
                  # Input parameters rock properties
-                 poro=0.15,  # reservoir posority
+                 poro=25,  # reservoir posority in percent
                  perm_mD=300,  # reservoir permeability mD
                  rho_rock=2300,  # rock density kg/m3
                  Cp_rock=1,  # 0.8532,  # specific heat capacity rock kJ/(kgK)
@@ -51,7 +51,7 @@ class make_doublet():
         self.A = self.r_h * self.r_w  # cross sectional area (m2)
 
         # Input parameters rock properties
-        self.poro = poro
+        self.poro = poro / 100
         self.rho_rock = rho_rock
         self.Cp_rock = Cp_rock
         self.cond_conf = cond_conf
