@@ -16,14 +16,12 @@ class make_doublet():
                  # Input parameters Geometry
                  depth_m=2283.33334,  # top reservoir depth in meters
                  thickn_m=100,  # reservoir thickness in meters
-                 width_m=1200,  # reservoir width in meters
 
                  # Input parameters rock properties
                  poro=25,  # reservoir posority in percent
                  perm_mD=300,  # reservoir permeability mD
                  rho_rock=2300,  # rock density kg/m3
-                 Cp_rock=1,  # 0.8532,  # specific heat capacity rock kJ/(kgK)
-                 cond_conf=2, # thermal conductivity of confining layers, in W/(mK)
+                 Cp_rock=1,  # specific heat capacity rock kJ/(kgK)
 
                  # Input parameters fluid properties
                  rho_fluid=1000,  # fluid density kg/m3
@@ -36,8 +34,8 @@ class make_doublet():
                  p_grad=9792100,  # pressure gradient (Pa/km)
 
                  # Input parameters wells
-                 q_m3_h=172.249,  # 250,  # volume flow rate m3/h
-                 w_space=1200,  # 1200,  # well spacing in meters
+                 q_m3_h=200,  # volume flow rate m3/h
+                 w_space=1200,   # well spacing in meters
                  w_diam=0.2032,  # well diameter in meters
                  T_inj=30,  # injection temperature degC
 
@@ -47,14 +45,11 @@ class make_doublet():
         # Input parameters Geometry
         self.r_d = depth_m
         self.r_h = thickn_m
-        self.r_w = width_m
-        self.A = self.r_h * self.r_w  # cross sectional area (m2)
 
         # Input parameters rock properties
         self.poro = poro / 100
         self.rho_rock = rho_rock
         self.Cp_rock = Cp_rock
-        self.cond_conf = cond_conf
         self.perm_mD = perm_mD
         self.perm_m2 = self.perm_mD * 9.8692326671601e-13 * 1e-3  # reservoir permeability in m2
 
