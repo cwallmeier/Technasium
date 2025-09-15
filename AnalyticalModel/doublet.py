@@ -98,8 +98,8 @@ class make_doublet():
 
     def dp_wells(self):
 
-        c_inj = self.mu_inj / self.perm_m2 * self.q_m3_h / (2 * np.pi * self.r_h)
-        c_prd = self.mu_0 / self.perm_m2 * self.q_m3_h / (2 * np.pi * self.r_h)
+        c_inj = self.mu_inj / self.perm_m2 * self.q_m3_s / (2 * np.pi * self.r_h)
+        c_prd = self.mu_0 / self.perm_m2 * self.q_m3_s / (2 * np.pi * self.r_h)
 
         self.dp_MPa = np.log((self.w_space - self.w_diam / 2) / self.w_diam / 2) * (c_inj + c_prd) * 1e-6
 
@@ -110,7 +110,7 @@ class make_doublet():
         :return: arrival time of cold front at producer well
         """
         self.t_cold_yrs = (self.poro / self.lmbda() *
-                           (2 * np.pi * self.r_h) / self.q_m3_h * self.w_space ** 2 / 6) / (365 * 24 * 3600)
+                           (2 * np.pi * self.r_h) / self.q_m3_h * self.w_space ** 2 / 6) / (365 * 24)
         return self.t_cold_yrs
 
     def p_pumps(self):
